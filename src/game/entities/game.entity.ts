@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid-good';
+import { Player } from 'src/player/entities/player.entity';
 
 export class Game {
   constructor(baseAmount: number) {
@@ -9,4 +10,5 @@ export class Game {
   _id: string;
   baseAmount: number;
   code: string;
+  players: Player[] = [];
 }
