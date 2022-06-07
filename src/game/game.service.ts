@@ -29,5 +29,6 @@ export class GameService {
   remove(_id: string) {
     const index = games.findIndex((game) => game._id === _id);
     games.splice(index, 1);
+    return games;
   }
 }

@@ -1,4 +1,3 @@
-import { Player } from './../player/entities/player.entity';
 import {
   Controller,
   Get,
@@ -7,14 +6,13 @@ import {
   Patch,
   Param,
   Delete,
-  Put,
 } from '@nestjs/common';
 import { GameService } from './game.service';
 import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
 import { TransferDto } from './dto/transfer.dto';
 
-@Controller('game')
+@Controller('games')
 export class GameController {
   constructor(private readonly gameService: GameService) {}
 
@@ -38,7 +36,7 @@ export class GameController {
     return this.gameService.update(id, updateGameDto);
   }
 
-  @Patch(':id/transfer')
+  @Post(':id/transfer')
   transfer(@Param('id') id: string, @Body() transferDto: TransferDto) {
     const game = this.gameService.findOne(id);
     const playerTo = game.players.find(
@@ -52,7 +50,7 @@ export class GameController {
     return game;
   }
 
-  @Put(':id/reset')
+  @Post(':id/reset')
   reset(@Param('id') id: string) {
     const game = this.gameService.findOne(id);
     for (let i = 0; i < game.players.length; i++) {
@@ -66,6 +64,7 @@ export class GameController {
   remove(@Param('id') id: string) {
     return this.gameService.remove(id);
   }
+
   @Delete(':id/player/:playerId')
   removePlayer(@Param('id') id: string, @Param('playerId') playerId: string) {
     const game = this.gameService.findOne(id);
