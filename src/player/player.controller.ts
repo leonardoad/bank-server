@@ -10,7 +10,6 @@ import {
 import { PlayerService } from './player.service';
 import { CreatePlayerDto } from './dto/create-player.dto';
 import { UpdatePlayerDto } from './dto/update-player.dto';
-import { TransferDto } from '../game/dto/transfer.dto';
 
 @Controller('player')
 export class PlayerController {

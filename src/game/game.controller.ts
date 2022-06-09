@@ -11,7 +11,8 @@ import { GameService } from './game.service';
 import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
 import { TransferDto } from './dto/transfer.dto';
-
+import { toDataURL } from 'qrcode';
+const BASE_URL = 'http://localhost:3001';
 @Controller('games')
 export class GameController {
   constructor(private readonly gameService: GameService) {}
@@ -73,5 +74,13 @@ export class GameController {
     );
     game.players.splice(playerIndex, 1);
     return game;
+  }
+
+  @Get(':id/player/:playerId/qr')
+  async getQr(@Param('id') id: string, @Param('playerId') playerId: string) {
+    const link = `/player/${id}/${playerId}`;
+    const qr = await toDataURL(link);
+
+    return { qr, link };
   }
 }
